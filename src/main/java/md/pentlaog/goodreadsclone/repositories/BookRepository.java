@@ -1,7 +1,12 @@
 package md.pentlaog.goodreadsclone.repositories;
 
-import md.pentlaog.goodreadsclone.entities.Book;
-import org.springframework.data.repository.CrudRepository;
+import md.pentlaog.goodreadsclone.model.Book;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BookRepository extends CrudRepository<Book, Integer> {
+import java.util.List;
+
+public interface BookRepository extends JpaRepository<Book, Long> {
+  Book findByName(String name);
+
+  List<Book> findBooksByAuthorId(Long id);
 }
