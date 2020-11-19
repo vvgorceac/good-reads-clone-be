@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import md.pentlaog.goodreadsclone.model.Book;
 
-import java.util.Date;
+import java.time.Instant;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 public class BookDTO {
   private Long id;
   private AuthorDTO authorDTO;
-  private Date publishYear;
+  private Instant publishYear;
   private String isbn;
   private String name;
 
@@ -22,7 +22,6 @@ public class BookDTO {
     book.setPublishYear(publishYear);
     book.setIsbn(isbn);
     book.setName(name);
-
     return book;
   }
 

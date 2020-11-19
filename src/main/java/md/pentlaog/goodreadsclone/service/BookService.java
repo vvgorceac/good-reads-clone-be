@@ -1,5 +1,6 @@
 package md.pentlaog.goodreadsclone.service;
 
+import md.pentlaog.goodreadsclone.dto.BookDTO;
 import md.pentlaog.goodreadsclone.model.Book;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface BookService {
 
   Book findByName(String name);
 
-  Book add(Book book);
+  Book add(BookDTO book);
 
   Book findById(Long id);
 

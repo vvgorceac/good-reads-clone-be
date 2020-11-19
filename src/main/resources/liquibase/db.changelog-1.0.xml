@@ -174,4 +174,31 @@
                                  onDelete="CASCADE"
                                  onUpdate="RESTRICT"/>
     </changeSet>
+
+
+    <changeSet id="1.0.9" author="VGorceac">
+        <createTable tableName="read_books">
+            <column name="user_id" type="BIGINT"/>
+            <column name="book_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.0.10" author="VGorceac">
+        <addForeignKeyConstraint baseTableName="read_books"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_read_books_user"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"/>
+    </changeSet>
+    <changeSet id="1.0.11" author="VGorceac">
+        <addForeignKeyConstraint baseTableName="read_books"
+                                 baseColumnNames="book_id"
+                                 constraintName="fk_read_books_book"
+                                 referencedTableName="books"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"/>
+    </changeSet>
 </databaseChangeLog>

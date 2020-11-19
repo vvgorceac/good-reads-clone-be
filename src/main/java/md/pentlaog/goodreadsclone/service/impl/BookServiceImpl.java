@@ -1,7 +1,11 @@
 package md.pentlaog.goodreadsclone.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import md.pentlaog.goodreadsclone.dto.AuthorDTO;
+import md.pentlaog.goodreadsclone.dto.BookDTO;
+import md.pentlaog.goodreadsclone.model.Author;
 import md.pentlaog.goodreadsclone.model.Book;
+import md.pentlaog.goodreadsclone.repositories.AuthorRepository;
 import md.pentlaog.goodreadsclone.repositories.BookRepository;
 import md.pentlaog.goodreadsclone.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,18 +18,20 @@ import java.util.List;
 public class BookServiceImpl implements BookService {
 
   private final BookRepository bookRepository;
+  private final AuthorRepository authorRepository;
 
   @Autowired
-  public BookServiceImpl(BookRepository bookRepository) {
+  public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository) {
     this.bookRepository = bookRepository;
+    this.authorRepository = authorRepository;
   }
 
-    @Override
-    public List<Book> getAll() {
-        List<Book> res = bookRepository.findAll();
-        log.info("in getAll- books:{}", res);
-        return res;
-    }
+  @Override
+  public List<Book> getAll() {
+    List<Book> res = bookRepository.findAll();
+    log.info("in getAll- books:{}", res);
+    return res;
+  }
 
   @Override
   public List<Book> getByAuthor(Long id) {
@@ -38,8 +44,10 @@ public class BookServiceImpl implements BookService {
   }
 
   @Override
-  public Book add(Book book) {
-    return bookRepository.save(book);
+  public Book add(BookDTO book) {
+    Author author = authorRepository.findById(book.getAuthorDTO().getId()).orElse(null);
+    book.setAuthorDTO(AuthorDTO.fromAuthor(author));
+    return bookRepository.save(book.toBook());
   }
 
   @Override

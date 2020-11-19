@@ -1,7 +1,9 @@
 package md.pentlaog.goodreadsclone.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,10 +17,8 @@ public class Role extends BaseEntity {
   private String name;
 
   @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+  @ToString.Exclude
+//  @JsonManagedReference
   private List<User> users;
 
-  @Override
-  public String toString() {
-    return "Role{" + "name='" + name + '\'' + '}';
-  }
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +38,7 @@ public class AuthenticationRestControllerV1 {
   }
 
   @PostMapping(value = "login")
-  public ResponseEntity login(@RequestBody AuthenticationRequestDTO authenticationRequestDTO) {
+  public ResponseEntity login(@Valid @RequestBody AuthenticationRequestDTO authenticationRequestDTO) {
     try {
       String username = authenticationRequestDTO.getUsername();
       authenticationManager.authenticate(
@@ -57,4 +58,6 @@ public class AuthenticationRestControllerV1 {
       throw new BadCredentialsException("Invalid user or password");
     }
   }
+
+
 }
