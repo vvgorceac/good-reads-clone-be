@@ -1,8 +1,8 @@
 package md.pentlaog.goodreadsclone.repositories;
 
-import md.pentlaog.goodreadsclone.entities.Author;
-import md.pentlaog.goodreadsclone.entities.Book;
-import org.springframework.data.repository.CrudRepository;
+import md.pentlaog.goodreadsclone.model.Author;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AuthorRepository extends CrudRepository<Author, Integer> {
+public interface AuthorRepository extends JpaRepository<Author, Long> {
+  Author findByFirstName(String authorName);
 }
