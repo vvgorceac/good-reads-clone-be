@@ -3,12 +3,15 @@ package md.pentlaog.goodreadsclone.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import md.pentlaog.goodreadsclone.dto.AuthorDTO;
 import md.pentlaog.goodreadsclone.dto.BookDTO;
+import md.pentlaog.goodreadsclone.exceptions.BookNotFoundException;
 import md.pentlaog.goodreadsclone.model.Author;
 import md.pentlaog.goodreadsclone.model.Book;
 import md.pentlaog.goodreadsclone.repositories.AuthorRepository;
 import md.pentlaog.goodreadsclone.repositories.BookRepository;
+import md.pentlaog.goodreadsclone.repositories.UserRepository;
 import md.pentlaog.goodreadsclone.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +22,16 @@ public class BookServiceImpl implements BookService {
 
   private final BookRepository bookRepository;
   private final AuthorRepository authorRepository;
+  private final UserRepository userRepository;
 
   @Autowired
-  public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository) {
+  public BookServiceImpl(
+      BookRepository bookRepository,
+      AuthorRepository authorRepository,
+      UserRepository userRepository) {
     this.bookRepository = bookRepository;
     this.authorRepository = authorRepository;
+    this.userRepository = userRepository;
   }
 
   @Override
@@ -66,4 +74,5 @@ public class BookServiceImpl implements BookService {
     bookRepository.deleteById(id);
     log.info("In Delete - book  with id:{} successfully deleted", id);
   }
+
 }

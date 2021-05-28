@@ -1,11 +1,9 @@
 package md.pentlaog.goodreadsclone.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import md.pentlaog.goodreadsclone.model.Book;
 import md.pentlaog.goodreadsclone.model.Role;
 import md.pentlaog.goodreadsclone.model.Status;
 import md.pentlaog.goodreadsclone.model.User;
-import md.pentlaog.goodreadsclone.repositories.BookRepository;
 import md.pentlaog.goodreadsclone.repositories.RoleRepository;
 import md.pentlaog.goodreadsclone.repositories.UserRepository;
 import md.pentlaog.goodreadsclone.service.UserService;
@@ -13,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -24,18 +20,15 @@ public class UserServiceImp implements UserService {
 
   private final UserRepository userRepository;
   private final RoleRepository roleRepository;
-  private final BookRepository bookRepository;
   private final BCryptPasswordEncoder passwordEncoder;
 
   @Autowired
   public UserServiceImp(
       UserRepository userRepository,
       RoleRepository roleRepository,
-      BookRepository bookRepository,
       BCryptPasswordEncoder passwordEncoder) {
     this.userRepository = userRepository;
     this.roleRepository = roleRepository;
-    this.bookRepository = bookRepository;
     this.passwordEncoder = passwordEncoder;
   }
 
@@ -44,8 +37,6 @@ public class UserServiceImp implements UserService {
     Role roleUser = roleRepository.findByName("ROLE_USER");
     List<Role> userRoles = new ArrayList<>();
     userRoles.add(roleUser);
-    user.setCreated(Instant.now()); // TODO add default logic in database
-    user.setUpdated(Instant.now()); // TODO add default logic in database
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     user.setRoles(userRoles);
     user.setStatus(Status.ACTIVE);
@@ -83,16 +74,5 @@ public class UserServiceImp implements UserService {
   public void delete(Long id) {
     userRepository.deleteById(id);
     log.info("In Delete - user with id:{} successfully deleted", id);
-  }
-
-  @Override
-  public User addReadBook(Long id, String name) {
-    User user = userRepository.findByuserName(name);
-    Optional<Book> book = bookRepository.findById(id);
-    List<Book> readbooks = user.getReadBooks();
-    if(!readbooks.contains(book.get())){
-      user.getReadBooks().add(book.get());
-    }
-    return userRepository.save(user);
   }
 }

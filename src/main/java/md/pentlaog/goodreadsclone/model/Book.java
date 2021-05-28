@@ -26,7 +26,6 @@ public class Book extends BaseEntity {
   private Instant publishYear;
 
   @ISBN
-//  @org.hibernate.validator.constraints.ISBN
   @Column(name = "isbn")
   private String isbn;
 

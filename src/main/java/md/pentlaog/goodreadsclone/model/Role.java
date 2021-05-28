@@ -1,6 +1,5 @@
 package md.pentlaog.goodreadsclone.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -14,11 +13,12 @@ import java.util.List;
 @Data
 public class Role extends BaseEntity {
   @Column(name = "name")
-  private String name;
+  @Enumerated(EnumType.STRING)
+  private md.pentlaog.goodreadsclone.security.Role name;
 
   @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
   @ToString.Exclude
-//  @JsonManagedReference
+  //  @JsonManagedReference
   private List<User> users;
-
 }
+

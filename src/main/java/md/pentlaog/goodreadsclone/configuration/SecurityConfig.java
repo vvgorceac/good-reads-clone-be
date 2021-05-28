@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -16,12 +17,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 
 @Configuration
+@EnableGlobalAuthentication
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-  private final JwtTokenProvider jwtTokenProvider;
-
   private static final String ADMIN_ENDPOINTS = "/api/v1/admin/**";
   private static final String[] USER_ENDPOINTS = {"/api/v1/books/**", "/api/v1/authors/**"};
   private static final String LOGIN_ENDPOINTS = "/api/v1/auth/login";
+  private final JwtTokenProvider jwtTokenProvider;
 
   @Autowired
   public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
@@ -66,5 +67,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     source.registerCorsConfiguration("/**", configuration);
     return source;
   }
-
 }

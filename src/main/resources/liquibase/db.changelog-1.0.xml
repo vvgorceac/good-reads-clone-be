@@ -26,10 +26,10 @@
             <column name="email" type="VARCHAR(255)">
                 <constraints nullable="false" unique="false"/>
             </column>
-            <column name="created" type="TIMESTAMP"  defaultValueComputed="NOW()">
+            <column name="created" type="TIMESTAMP" defaultValueComputed="NOW()">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated" type="TIMESTAMP"  defaultValueComputed="NOW()">
+            <column name="updated" type="TIMESTAMP" defaultValueComputed="NOW()">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -43,10 +43,10 @@
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="created" type="TIMESTAMP"  defaultValueComputed="NOW()">
+            <column name="created" type="TIMESTAMP" defaultValueComputed="NOW()">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated" type="TIMESTAMP"  defaultValueComputed="NOW()">
+            <column name="updated" type="TIMESTAMP" defaultValueComputed="NOW()">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -80,11 +80,15 @@
     <changeSet id="1.0.5" author="VGorceac">
         <insert tableName="roles">
             <column name="id" value="1"/>
-            <column name="name" value="ROLE_USER"/>
+            <column name="name" value="USER"/>
         </insert>
         <insert tableName="roles">
             <column name="id" value="2"/>
-            <column name="name" value="ROLE_ADMIN"/>
+            <column name="name" value="ADMIN"/>
+        </insert>
+        <insert tableName="roles">
+            <column name="id" value="3"/>
+            <column name="name" value="CONTENT_MANAGER"/>
         </insert>
         <insert tableName="users">
             <column name="id" value="1"/>
@@ -130,10 +134,10 @@
             <column name="publish_year" type="TIMESTAMP">
                 <constraints nullable="false" unique="false"/>
             </column>
-            <column name="created" type="TIMESTAMP"  defaultValueComputed="NOW()">
+            <column name="created" type="TIMESTAMP" defaultValueComputed="NOW()">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated" type="TIMESTAMP"  defaultValueComputed="NOW()">
+            <column name="updated" type="TIMESTAMP" defaultValueComputed="NOW()">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -156,10 +160,10 @@
             <column name="birth_date" type="TIMESTAMP">
                 <constraints nullable="false" unique="false"/>
             </column>
-            <column name="created" type="TIMESTAMP"  defaultValueComputed="NOW()">
+            <column name="created" type="TIMESTAMP" defaultValueComputed="NOW()">
                 <constraints nullable="false"/>
             </column>
-            <column name="updated" type="TIMESTAMP"  defaultValueComputed="NOW()">
+            <column name="updated" type="TIMESTAMP" defaultValueComputed="NOW()">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -196,6 +200,45 @@
         <addForeignKeyConstraint baseTableName="read_books"
                                  baseColumnNames="book_id"
                                  constraintName="fk_read_books_book"
+                                 referencedTableName="books"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"/>
+    </changeSet>
+
+    <changeSet id="1.0.12" author="VGorceac">
+        <createTable tableName="book_marks">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="book_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mark" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="created" type="TIMESTAMP" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated" type="TIMESTAMP" defaultValueComputed="NOW()">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="book_marks"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_mark_books_user"
+                                 referencedTableName="users"
+                                 referencedColumnNames="id"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"/>
+        <addForeignKeyConstraint baseTableName="book_marks"
+                                 baseColumnNames="book_id"
+                                 constraintName="fk_mark_books_book"
                                  referencedTableName="books"
                                  referencedColumnNames="id"
                                  onDelete="CASCADE"

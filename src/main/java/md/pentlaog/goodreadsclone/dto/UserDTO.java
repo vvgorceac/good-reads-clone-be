@@ -5,7 +5,6 @@ import lombok.Data;
 import md.pentlaog.goodreadsclone.model.User;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
@@ -17,17 +16,6 @@ public class UserDTO {
   private String email;
   private List<BookDTO> readBooks;
 
-  public User toUser() {
-    User user = new User();
-    user.setId(id);
-    user.setUserName(username);
-    user.setFirstName(firstName);
-    user.setLastName(lastName);
-    user.setEmail(email);
-    user.setReadBooks(readBooks.stream().map(BookDTO::toBook).collect(Collectors.toList()));
-    return user;
-  }
-
   public static UserDTO fromUser(User user) {
     UserDTO userDTO = new UserDTO();
     userDTO.setId(user.getId());
@@ -35,8 +23,16 @@ public class UserDTO {
     userDTO.setFirstName(user.getFirstName());
     userDTO.setLastName(user.getLastName());
     userDTO.setEmail(user.getEmail());
-    userDTO.setReadBooks(
-        user.getReadBooks().stream().map(BookDTO::fromBook).collect(Collectors.toList()));
     return userDTO;
+  }
+
+  public User toUser() {
+    User user = new User();
+    user.setId(id);
+    user.setUserName(username);
+    user.setFirstName(firstName);
+    user.setLastName(lastName);
+    user.setEmail(email);
+    return user;
   }
 }

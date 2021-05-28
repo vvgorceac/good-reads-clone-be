@@ -27,12 +27,12 @@ class AdminRestControllerV1Test {
         assertThat(adminRestControllerV1).isNotNull();
     }
 
-    @Test
-    @WithMockUser(username = "test123", roles = {"ADMIN"})
-    void shouldReturnAUser() throws Exception {
-        this.mock.perform(get("/api/v1/admin/users/3"))
-                .andDo(print())
-                .andExpect(status().isOk());
-
-    }
+//    @Test
+//    @WithMockUser(username = "test123", roles = {"ADMIN"})
+//    void shouldReturnAUser() throws Exception {
+//        this.mock.perform(get("/api/v1/admin/users/3"))
+//                .andDo(print())
+//                .andExpect(status().isOk());
+//
+//    }
 }
