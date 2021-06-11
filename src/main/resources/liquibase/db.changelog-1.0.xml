@@ -244,4 +244,70 @@
                                  onDelete="CASCADE"
                                  onUpdate="RESTRICT"/>
     </changeSet>
+
+    <changeSet id="1.0.13" author="VGorceac">
+        <insert tableName="authors">
+            <column name="id" value="1"/>
+            <column name="first_name" value="Максим"/>
+            <column name="last_name" value="Горький"/>
+            <column name="birth_date" value="28/03/1868"/>
+        </insert>
+        <insert tableName="authors">
+            <column name="id" value="2"/>
+            <column name="first_name" value="Алексндр"/>
+            <column name="last_name" value="Пушкин"/>
+            <column name="birth_date" value="6/06/1799"/>
+        </insert>
+        <insert tableName="authors">
+            <column name="id" value="3"/>
+            <column name="first_name" value="Лев"/>
+            <column name="last_name" value="Толстой"/>
+            <column name="birth_date" value="9/09/1828"/>
+        </insert>
+        <insert tableName="books">
+            <column name="id" value="1" />
+            <column name="author_id" value="1" />
+            <column name="name" value="Мать" />
+            <column name="isbn" value="978-3-598-21500-1" />
+            <column name="publish_year" value="1/01/1906" />
+        </insert>
+        <insert tableName="books">
+            <column name="id" value="2" />
+            <column name="author_id" value="1" />
+            <column name="name" value="Детство" />
+            <column name="isbn" value="978-3-598-21501-8" />
+            <column name="publish_year" value="1/01/1913" />
+        </insert>
+        <insert tableName="books">
+            <column name="id" value="3" />
+            <column name="author_id" value="2" />
+            <column name="name" value="Руслан и людмила" />
+            <column name="isbn" value="978-3-598-21502-5" />
+            <column name="publish_year" value="1/01/1820" />
+        </insert>
+        <insert tableName="books">
+            <column name="id" value="4" />
+            <column name="author_id" value="2" />
+            <column name="name" value="Капитанская дочка" />
+            <column name="isbn" value="978-3-598-21503-2" />
+            <column name="publish_year" value="1/01/1836" />
+        </insert>
+        <insert tableName="books">
+            <column name="id" value="5" />
+            <column name="author_id" value="3" />
+            <column name="name" value="Война и мир" />
+            <column name="isbn" value="978-3-598-21504-9" />
+            <column name="publish_year" value="1/01/1867" />
+        </insert>
+
+        <insert tableName="books">
+            <column name="id" value="6" />
+            <column name="author_id" value="3" />
+            <column name="name" value="Исповедь" />
+            <column name="isbn" value="978-3-598-21505-6" />
+            <column name="publish_year" value="1/01/1882" />
+        </insert>
+
+
+    </changeSet>
 </databaseChangeLog>

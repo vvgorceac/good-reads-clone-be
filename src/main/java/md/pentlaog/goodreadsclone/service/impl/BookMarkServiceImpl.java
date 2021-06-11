@@ -35,7 +35,7 @@ public class BookMarkServiceImpl implements BookMarkService {
   }
 
   @Override
-  public BookMark markBook(Long bookId, int score, String userName) {
+  public BookMark markBookAsRead(Long bookId, String userName) {
     var user = userRepository.findByuserName(userName);
     if (user == null) {
       throw new UsernameNotFoundException("User with username:" + userName + " not found");
@@ -47,7 +47,7 @@ public class BookMarkServiceImpl implements BookMarkService {
     }
 
     var bookMark = new BookMark();
-    bookMark.setMark(score);
+
     bookMark.setUser(user);
     bookMark.setBook(book);
     return bookMarkRepository.save(bookMark);

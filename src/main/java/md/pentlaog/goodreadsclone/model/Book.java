@@ -8,6 +8,8 @@ import lombok.ToString;
 import md.pentlaog.goodreadsclone.validation.ISBN;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.List;
 
@@ -17,22 +19,25 @@ import java.util.List;
 @Data
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Book extends BaseEntity {
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "author_id", nullable = false)
-  @ToString.Exclude
-  private Author author;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "author_id", nullable = false)
+    @ToString.Exclude
+    private Author author;
 
-  @Column(name = "publish_year")
-  private Instant publishYear;
+    @NotNull
+    @Column(name = "publish_year")
+    private Instant publishYear;
 
-  @ISBN
-  @Column(name = "isbn")
-  private String isbn;
+    @ISBN
+    @Column(name = "isbn")
+    private String isbn;
 
-  @Column(name = "name")
-  private String name;
+    @NotNull
+    @NotBlank
+    @Column(name = "name")
+    private String name;
 
-  @ManyToMany(mappedBy = "readBooks")
-  @ToString.Exclude
-  private List<User> readUsers;
+    @ManyToMany(mappedBy = "readBooks")
+    @ToString.Exclude
+    private List<User> readUsers;
 }

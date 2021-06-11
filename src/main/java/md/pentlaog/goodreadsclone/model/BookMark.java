@@ -7,10 +7,10 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "book_marks")
 @Data
+@EqualsAndHashCode(callSuper = true)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class BookMark extends BaseEntity {
 
@@ -25,3 +25,5 @@ public class BookMark extends BaseEntity {
   @Column(name = "mark")
   private int mark;
 }
+
+

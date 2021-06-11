@@ -12,19 +12,19 @@ import java.time.Instant;
 @Data
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-  @CreatedDate
-  @Column(name = "created")
-  private Instant created;
+    @CreatedDate
+    @Column(name = "created")
+    private Instant created;
 
-  @LastModifiedDate
-  @Column(name = "updated")
-  private Instant updated;
+    @LastModifiedDate
+    @Column(name = "updated")
+    private Instant updated;
 
-  @Enumerated(EnumType.STRING)
-  @Column(name = "status")
-  private Status status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
 }

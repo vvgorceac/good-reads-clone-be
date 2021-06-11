@@ -1,4 +1,4 @@
-package md.pentlaog.goodreadsclone.rest;
+package md.pentlaog.goodreadsclone.rest.author;
 
 import lombok.extern.slf4j.Slf4j;
 import md.pentlaog.goodreadsclone.dto.AuthorDTO;

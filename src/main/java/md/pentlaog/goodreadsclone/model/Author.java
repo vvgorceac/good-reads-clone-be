@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
 @EqualsAndHashCode(callSuper = true)
@@ -14,12 +16,17 @@ import java.time.Instant;
 @Data
 public class Author extends BaseEntity {
 
-  @Column(name = "first_name")
-  private String firstName;
+    @NotNull
+    @NotBlank
+    @Column(name = "first_name")
+    private String firstName;
 
-  @Column(name = "last_name")
-  private String lastName;
+    @NotNull
+    @NotBlank
+    @Column(name = "last_name")
+    private String lastName;
 
-  @Column(name = "birth_date")
-  private Instant birthDate;
+    @NotNull
+    @Column(name = "birth_date")
+    private Instant birthDate;
 }

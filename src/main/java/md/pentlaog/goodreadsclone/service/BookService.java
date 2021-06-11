@@ -1,20 +1,19 @@
 package md.pentlaog.goodreadsclone.service;
 
-import md.pentlaog.goodreadsclone.dto.BookDTO;
 import md.pentlaog.goodreadsclone.model.Book;
 
 import java.util.List;
 
 public interface BookService {
-  List<Book> getAll();
+    List<Book> getAll();
 
-  List<Book> getByAuthor(Long id);
+    List<Book> getByAuthor(Long id);
 
-  Book findByName(String name);
+    Book findByName(String name);
 
-  Book add(BookDTO book);
+    Book add(Book book);
 
-  Book findById(Long id);
+    Book findById(Long id);
 
-  void delete(Long id);
+    void delete(Long id);
 }

@@ -57,6 +57,5 @@ public class User extends BaseEntity {
       joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
       inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
   @Column(name = "roles")
-  //  @JsonBackReference
   private List<Role> roles;
 }
