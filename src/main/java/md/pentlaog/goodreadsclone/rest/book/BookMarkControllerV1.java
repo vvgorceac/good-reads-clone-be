@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import md.pentlaog.goodreadsclone.model.BookMark;
 import md.pentlaog.goodreadsclone.service.BookMarkService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.web.bind.annotation.*;
@@ -30,12 +31,15 @@ public class BookMarkControllerV1 {
 
     @PostMapping(path = "/{id}")
     @PreAuthorize("hasAuthority('books:score')")
-    public BookMark markBookAsRead(
+    public ResponseEntity<?> markBookAsRead(
             @PathVariable Long id,
             @CurrentSecurityContext(expression = "authentication.principal") Principal principal,
             @RequestParam int score) {
-
-        return bookMarkService.markBookAsRead(id,  principal.getName());
+        try {
+            return ResponseEntity.ok().body(bookMarkService.setBookScore(id, principal.getName(), score));
+        } catch (RuntimeException exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
     }
 
     @GetMapping(path = "/{id}/rating")

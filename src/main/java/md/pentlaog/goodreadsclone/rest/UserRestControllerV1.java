@@ -48,7 +48,7 @@ public class UserRestControllerV1 {
 
     @PostMapping(path = "/read/{bookId}")
     @PreAuthorize("hasAuthority('books:read')")
-    public ResponseEntity<?> getBooksByAuthor(@PathVariable Long bookId, @CurrentSecurityContext(expression = "authentication.principal") Principal principal) {
+    public ResponseEntity<?> readBook(@PathVariable Long bookId, @CurrentSecurityContext(expression = "authentication.principal") Principal principal) {
         if (bookService.findById(bookId) == null)
             return ResponseEntity.badRequest().build();
         try {

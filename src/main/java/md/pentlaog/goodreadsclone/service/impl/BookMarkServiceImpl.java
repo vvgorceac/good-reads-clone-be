@@ -15,46 +15,50 @@ import java.util.List;
 @Service
 public class BookMarkServiceImpl implements BookMarkService {
 
-  private final BookMarkRepository bookMarkRepository;
-  private final UserRepository userRepository;
-  private final BookRepository bookRepository;
+    private final BookMarkRepository bookMarkRepository;
+    private final UserRepository userRepository;
+    private final BookRepository bookRepository;
 
-  @Autowired
-  public BookMarkServiceImpl(
-      BookMarkRepository bookMarkRepository,
-      UserRepository userRepository,
-      BookRepository bookRepository) {
-    this.bookMarkRepository = bookMarkRepository;
-    this.userRepository = userRepository;
-    this.bookRepository = bookRepository;
-  }
-
-  @Override
-  public List<BookMark> getAll() {
-    return bookMarkRepository.findAll();
-  }
-
-  @Override
-  public BookMark markBookAsRead(Long bookId, String userName) {
-    var user = userRepository.findByuserName(userName);
-    if (user == null) {
-      throw new UsernameNotFoundException("User with username:" + userName + " not found");
+    @Autowired
+    public BookMarkServiceImpl(
+            BookMarkRepository bookMarkRepository,
+            UserRepository userRepository,
+            BookRepository bookRepository) {
+        this.bookMarkRepository = bookMarkRepository;
+        this.userRepository = userRepository;
+        this.bookRepository = bookRepository;
     }
 
-    var book = bookRepository.findById(bookId).orElse(null);
-    if (book == null) {
-      throw new BookNotFoundException(bookId);
+    @Override
+    public List<BookMark> getAll() {
+        return bookMarkRepository.findAll();
     }
 
-    var bookMark = new BookMark();
+    @Override
+    public BookMark setBookScore(Long bookId, String userName, int score) {
+        var user = userRepository.findByuserName(userName);
+        if (user == null) {
+            throw new UsernameNotFoundException("User with username:" + userName + " not found");
+        }
 
-    bookMark.setUser(user);
-    bookMark.setBook(book);
-    return bookMarkRepository.save(bookMark);
-  }
+        var book = bookRepository.findById(bookId).orElse(null);
+        if (book == null) {
+            throw new BookNotFoundException(bookId);
+        }
 
-  @Override
-  public Double getBookRating(Long id) {
-    return bookMarkRepository.getMaxAgeMinus(id);
-  }
+        if (!user.getReadBooks().contains(book))
+            throw new RuntimeException("User didn't read the book yet");
+
+        var bookMark = new BookMark();
+
+        bookMark.setUser(user);
+        bookMark.setBook(book);
+        bookMark.setMark(score);
+        return bookMarkRepository.save(bookMark);
+    }
+
+    @Override
+    public Double getBookRating(Long id) {
+        return bookMarkRepository.getMaxAgeMinus(id);
+    }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 public interface BookMarkService {
   List<BookMark> getAll();
 
-  BookMark markBookAsRead(Long bookId, String userName);
+  BookMark setBookScore(Long bookId, String userName, int score);
 
   Double getBookRating(Long id);
 }
