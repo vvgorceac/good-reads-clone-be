@@ -1,17 +1,17 @@
 package md.pentlaog.goodreadsclone.service;
 
-import md.pentlaog.goodreadsclone.model.Author;
+import md.pentlaog.goodreadsclone.dto.AuthorDTO;
 
 import java.util.List;
 
 public interface AuthorService {
-  Author add(Author author);
+    AuthorDTO add(AuthorDTO author);
 
-  List<Author> getAll();
+    List<AuthorDTO> getAll();
 
-  Author findByFirstName(String authorName);
+    AuthorDTO findByFirstName(String authorName);
 
-  Author findById(Long id);
+    AuthorDTO findById(Long id);
 
-  void delete(Long id);
+    void delete(Long id);
 }

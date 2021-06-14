@@ -1,6 +1,7 @@
 package md.pentlaog.goodreadsclone.rest.author;
 
 import lombok.extern.slf4j.Slf4j;
+import md.pentlaog.goodreadsclone.dto.AuthorDTO;
 import md.pentlaog.goodreadsclone.model.Author;
 import md.pentlaog.goodreadsclone.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class AuthorAdminControllerV1 {
     @PostMapping
     @PreAuthorize("hasAuthority('author:write')")
     public @ResponseBody
-    Author addNewAuthor(@Valid @RequestBody Author author) {
+    AuthorDTO addNewAuthor(@Valid @RequestBody AuthorDTO author) {
         log.info("ADDING AUTHOR:{}", author);
         return authorService.add(author);
     }

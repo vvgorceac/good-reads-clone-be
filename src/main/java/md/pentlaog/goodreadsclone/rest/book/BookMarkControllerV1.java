@@ -1,6 +1,7 @@
 package md.pentlaog.goodreadsclone.rest.book;
 
 import lombok.extern.slf4j.Slf4j;
+import md.pentlaog.goodreadsclone.dto.BookMarkDTO;
 import md.pentlaog.goodreadsclone.model.BookMark;
 import md.pentlaog.goodreadsclone.service.BookMarkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class BookMarkControllerV1 {
     }
 
     @GetMapping
-    public List<BookMark> getBookMarks() {
+    public List<BookMarkDTO> getBookMarks() {
         return bookMarkService.getAll();
     }
 

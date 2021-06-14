@@ -1,6 +1,7 @@
 package md.pentlaog.goodreadsclone.rest.book;
 
 import lombok.extern.slf4j.Slf4j;
+import md.pentlaog.goodreadsclone.dto.BookDTO;
 import md.pentlaog.goodreadsclone.model.Book;
 import md.pentlaog.goodreadsclone.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class BookAdminControllerV1 {
 
     @PostMapping(path = "")
     @PreAuthorize("hasAuthority('books:write')")
-    public ResponseEntity<?> addNewBook(@Valid @RequestBody Book book) {
+    public ResponseEntity<BookDTO> addNewBook(@Valid @RequestBody BookDTO book) {
         return ResponseEntity.ok().body(bookService.add(book));
     }
 

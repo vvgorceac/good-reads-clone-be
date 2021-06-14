@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 public class UserDTO {
     private Long id;
     private String username;
+    private String password;
     private String firstName;
     private String lastName;
     private String email;
@@ -21,6 +22,7 @@ public class UserDTO {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
         userDTO.setUsername(user.getUserName());
+        userDTO.setPassword(user.getPassword());
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
         userDTO.setEmail(user.getEmail());

@@ -29,18 +29,16 @@ public class UserRestControllerV1 {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable(name = "id") Long id) {
-        User user = userService.findById(id);
+        UserDTO user = userService.findById(id);
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
-        UserDTO res = UserDTO.fromUser(user);
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<String> register(@Valid @RequestBody User user) {
-        if (userService.findByUsername(user.getUserName()) != null)
+    public ResponseEntity<String> register(@Valid @RequestBody UserDTO user) {
+        if (userService.findByUsername(user.getUsername()) != null)
             return new ResponseEntity<>("User already exists", HttpStatus.BAD_REQUEST);
         userService.register(user);
         return new ResponseEntity<>("", HttpStatus.CREATED);
@@ -52,7 +50,7 @@ public class UserRestControllerV1 {
         if (bookService.findById(bookId) == null)
             return ResponseEntity.badRequest().build();
         try {
-            return ResponseEntity.ok().body(UserDTO.fromUser(userService.readBook(principal.getName(), bookId)));
+            return ResponseEntity.ok().body(userService.readBook(principal.getName(), bookId));
         } catch (RuntimeException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }

@@ -16,12 +16,11 @@ public class AdminRestControllerV1 {
 
   @GetMapping(value = "users/{id}")
   public ResponseEntity<UserDTO> getUserById(@PathVariable(name = "id") Long id) {
-    User user = userService.findById(id);
+    UserDTO user = userService.findById(id);
     if (user == null) {
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    UserDTO res = UserDTO.fromUser(user);
-    return new ResponseEntity<>(res, HttpStatus.OK);
+    return new ResponseEntity<>(user, HttpStatus.OK);
   }
 }

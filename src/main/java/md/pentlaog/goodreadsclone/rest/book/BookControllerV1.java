@@ -28,13 +28,13 @@ public class BookControllerV1 {
     @PreAuthorize("hasAuthority('books:read')")
     public @ResponseBody
     List<BookDTO> getAllBooks() {
-        return bookService.getAll().stream().map(BookDTO::fromBook).collect(Collectors.toList());
+        return bookService.getAll();
     }
 
     @GetMapping(path = "/author")
     @PreAuthorize("hasAuthority('books:read')")
     public @ResponseBody
     List<BookDTO> getBooksByAuthor(@RequestParam Long id) {
-        return bookService.getByAuthor(id).stream().map(BookDTO::fromBook).collect(Collectors.toList());
+        return bookService.getByAuthor(id);
     }
 }

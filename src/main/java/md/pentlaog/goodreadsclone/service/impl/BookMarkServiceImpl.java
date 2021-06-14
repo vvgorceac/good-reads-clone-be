@@ -1,5 +1,6 @@
 package md.pentlaog.goodreadsclone.service.impl;
 
+import md.pentlaog.goodreadsclone.dto.BookMarkDTO;
 import md.pentlaog.goodreadsclone.exceptions.BookNotFoundException;
 import md.pentlaog.goodreadsclone.model.BookMark;
 import md.pentlaog.goodreadsclone.repositories.BookMarkRepository;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookMarkServiceImpl implements BookMarkService {
@@ -30,12 +32,12 @@ public class BookMarkServiceImpl implements BookMarkService {
     }
 
     @Override
-    public List<BookMark> getAll() {
-        return bookMarkRepository.findAll();
+    public List<BookMarkDTO> getAll() {
+        return bookMarkRepository.findAll().stream().map(BookMarkDTO::fromBookMark).collect(Collectors.toList());
     }
 
     @Override
-    public BookMark setBookScore(Long bookId, String userName, int score) {
+    public BookMarkDTO setBookScore(Long bookId, String userName, int score) {
         var user = userRepository.findByuserName(userName);
         if (user == null) {
             throw new UsernameNotFoundException("User with username:" + userName + " not found");
@@ -54,7 +56,7 @@ public class BookMarkServiceImpl implements BookMarkService {
         bookMark.setUser(user);
         bookMark.setBook(book);
         bookMark.setMark(score);
-        return bookMarkRepository.save(bookMark);
+        return BookMarkDTO.fromBookMark(bookMarkRepository.save(bookMark));
     }
 
     @Override

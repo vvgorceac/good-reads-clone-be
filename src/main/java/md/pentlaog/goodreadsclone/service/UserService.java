@@ -1,19 +1,20 @@
 package md.pentlaog.goodreadsclone.service;
 
+import md.pentlaog.goodreadsclone.dto.UserDTO;
 import md.pentlaog.goodreadsclone.model.User;
 
 import java.util.List;
 
 public interface UserService {
-    User register(User user);
+    UserDTO register(UserDTO user);
 
-    List<User> getAll();
+    List<UserDTO> getAll();
 
-    User findByUsername(String username);
+    UserDTO findByUsername(String username);
 
-    User findById(Long id);
+    UserDTO findById(Long id);
 
     void delete(Long id);
 
-    User readBook(String username, Long bookId);
+    UserDTO readBook(String username, Long bookId);
 }
