@@ -3,6 +3,7 @@ package md.pentlaog.goodreadsclone.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import md.pentlaog.goodreadsclone.dto.AuthorDTO;
 import md.pentlaog.goodreadsclone.dto.BookDTO;
+import md.pentlaog.goodreadsclone.dto.BookRequestDTO;
 import md.pentlaog.goodreadsclone.model.Author;
 import md.pentlaog.goodreadsclone.model.Book;
 import md.pentlaog.goodreadsclone.repositories.AuthorRepository;
@@ -36,6 +37,14 @@ public class BookServiceImpl implements BookService {
         List<Book> res = bookRepository.findAll();
         log.info("in getAll- books:{}", res);
         return res.stream().map(BookDTO::fromBook).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookDTO> getAllFiltered(BookRequestDTO bookRequestDTO) {
+        this.bookRepository.findBooksByAuthorId()
+
+
+        return ;
     }
 
     @Override
